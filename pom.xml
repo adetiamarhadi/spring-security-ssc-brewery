@@ -21,6 +21,7 @@
 		<webjars-jquery.version>3.3.0</webjars-jquery.version>
 		<webjars-jquery-ui.version>1.12.1</webjars-jquery-ui.version>
 		<org.projectlombok.version>1.18.26</org.projectlombok.version>
+		<spring-security-test.version>6.0.2</spring-security-test.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -93,6 +94,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<version>${spring-security-test.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
