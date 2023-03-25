@@ -2,6 +2,7 @@ package com.github.adetiamarhadi.springsecuritysscbrewery.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,7 +17,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll())
+                .authorizeHttpRequests(authorize ->
+                        authorize
+                                .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
+                                .requestMatchers("/beers/find", "/beers*").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
+                )
                 .authorizeHttpRequests((authorize) -> authorize
                         .anyRequest().authenticated()
                 )
