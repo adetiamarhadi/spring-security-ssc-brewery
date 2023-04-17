@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -17,6 +19,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @EnableWebMvc
 public class SecurityConfig {
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -42,19 +49,19 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails admin = User.builder()
                 .username("admin")
-                .password("{noop}password")
+                .password("password")
                 .roles("ADMIN")
                 .build();
 
         UserDetails user = User.builder()
                 .username("user")
-                .password("{noop}password")
+                .password("password")
                 .roles("USER")
                 .build();
 
         UserDetails customer = User.builder()
                 .username("scott")
-                .password("{noop}tiger")
+                .password("tiger")
                 .roles("CUSTOMER")
                 .build();
 
