@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,7 +22,7 @@ public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+        return new LdapShaPasswordEncoder();
     }
 
     @Bean
@@ -49,13 +49,13 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails admin = User.builder()
                 .username("admin")
-                .password("password")
+                .password("{SSHA}4KOmtOxUEYO3JktONCFd/J9qDFv6QZ0/Hfgqqw==")
                 .roles("ADMIN")
                 .build();
 
         UserDetails user = User.builder()
                 .username("user")
-                .password("password")
+                .password("{SSHA}4KOmtOxUEYO3JktONCFd/J9qDFv6QZ0/Hfgqqw==")
                 .roles("USER")
                 .build();
 

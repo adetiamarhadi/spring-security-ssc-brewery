@@ -1,9 +1,12 @@
 package com.github.adetiamarhadi.springsecuritysscbrewery.web.controllers;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.DigestUtils;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PasswordEncodingTests {
 
@@ -23,5 +26,16 @@ public class PasswordEncodingTests {
 
         String salted = PASSWORD + "ThisIsMySALTVALUE";
         System.out.println(DigestUtils.md5DigestAsHex(salted.getBytes()));
+    }
+
+    @Test
+    void testLdap() {
+        PasswordEncoder ldap = new LdapShaPasswordEncoder();
+        System.out.println(ldap.encode(PASSWORD));
+        System.out.println(ldap.encode(PASSWORD));
+
+        String encodedPwd = ldap.encode(PASSWORD);
+
+        assertTrue(ldap.matches(PASSWORD, encodedPwd ));
     }
 }
